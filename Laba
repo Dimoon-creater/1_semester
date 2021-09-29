@@ -1,0 +1,22 @@
+import math
+# sin(Ln(1+x)/x)*e**x
+print('Лабораторная работа №2 \nДанилов Дмитрий \nПиб-213 \nФункция sin(Ln(1+x)/x)*e**x')
+try:
+    a = float(input("Введите начало отрезка: \n"))
+    b = float(input("Введите конец отрезка: \n"))
+    step = float(input('Введите шаг: \n'))
+    try:
+        x = a
+        while x == 0:
+            print ("Неподходит по ОДЗ. Попробуйте снова")
+            break
+        else:
+            while x <= b:
+                Y = math.sin(math.log1p(x) / x) * math.exp(x)
+                x = round(x, 3)
+                print(' | ', x, ' | ', round(Y, 3), ' | ')
+                x += step
+    except ValueError as ve:
+        print(f'Введите положительное число.')
+except ValueError as ve:
+    print('Ну ка вводи цифры. ')
