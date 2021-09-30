@@ -1,0 +1,30 @@
+import math
+# sin(Ln(1+x)/x)*e**x
+f = open('test.txt', 'w')
+print('Laba №2 \nDanilov Dmitry \nPib-213 \nY =  sin(Ln(1+x)/x)*e**x')
+print('Laba #2 \nDanilov Dmitry \nPib-213 \nY =  sin(Ln(1+x)/x)*e**x', file=f)
+try:
+    a = float(input("Введите начало отрезка: \n"))
+    b = float(input("Введите конец отрезка: \n"))
+    h = float(input('Введите шаг: \n'))
+    f.write(f'start {a} \nend {b} \nstep {h}\n')
+    try:
+        x = a
+        while x <= 0 or b <= 0:
+            print("Неподходит по ОДЗ. Попробуйте снова")
+            print('Does not fit. Try again', file=f)
+            break
+        else:
+            while x <= b:
+                Y = math.sin(math.log1p(x) / x) * math.exp(x)
+                x = round(x, 3)
+                print(' | ', x, ' | ', round(Y, 3), ' | ')
+                print(' | ', x, ' | ', round(Y, 3), ' | ', file=f)
+                x += h
+    except ValueError as ve:
+        print(f'Введите положительное число.')
+        print('Pleas positive number', file=f)
+except ValueError as ve:
+    print('Ну ка вводи цифры. ')
+    print('This is not a number. Pleas positive number', file=f)
+f.close()
