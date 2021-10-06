@@ -1,30 +1,36 @@
 import math
+
 # sin(Ln(1+x)/x)*e**x
-f = open('test.txt', 'w')
-print('Laba №2 \nDanilov Dmitry \nPib-213 \nY =  sin(Ln(1+x)/x)*e**x')
-print('Laba #2 \nDanilov Dmitry \nPib-213 \nY =  sin(Ln(1+x)/x)*e**x', file=f)
+D = open('test.txt', 'w')
+print('Лабораторная работа №2 \nДанилов Дмитрий \nПиб-213 \nФункция sin(Ln(1+x)/x)*e**x')
+print('Laba #2 \nDanilov Dmitry \nPib-213 \nY = sin(Ln(1+x)/x)*e**x', file=D)
 try:
-    a = float(input("Введите начало отрезка: \n"))
-    b = float(input("Введите конец отрезка: \n"))
-    h = float(input('Введите шаг: \n'))
-    f.write(f'start {a} \nend {b} \nstep {h}\n')
+    a = str(input("Введите начало отрезка: \n"))
+    a1 = a.replace(',', '.')
+    b = str(input("Введите конец отрезка: \n"))
+    b1 = b.replace(',', '.')
+    h = str(input('Введите шаг: \n'))
+    h1 = h.replace(',', '.')
+    x = float(a1)
+    f = float(b1)
+    step = float(h1)
+    D.write(f'start {x} \nend {f} \nstep {step}\n')
     try:
-        x = a
-        while x <= 0 or b <= 0:
+        while x <= 0 or f <= 0:
             print("Неподходит по ОДЗ. Попробуйте снова")
-            print('Does not fit. Try again', file=f)
+            print('Does not fit. Try again', file=D)
             break
         else:
-            while x <= b:
+            while x <= f:
                 Y = math.sin(math.log1p(x) / x) * math.exp(x)
                 x = round(x, 3)
                 print(' | ', x, ' | ', round(Y, 3), ' | ')
-                print(' | ', x, ' | ', round(Y, 3), ' | ', file=f)
-                x += h
+                print(' | ', x, ' | ', round(Y, 3), ' | ', file=D)
+                x += step
     except ValueError as ve:
         print(f'Введите положительное число.')
-        print('Pleas positive number', file=f)
+        print('Pleas positive number', file=D)
 except ValueError as ve:
     print('Ну ка вводи цифры. ')
-    print('This is not a number. Pleas positive number', file=f)
-f.close()
+    print('This is not a number. Pleas positive number', file=D)
+D.close()
