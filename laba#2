@@ -4,33 +4,43 @@ import math
 D = open('test.txt', 'w')
 print('Лабораторная работа №2 \nДанилов Дмитрий \nПиб-213 \nФункция sin(Ln(1+x)/x)*e**x')
 print('Laba #2 \nDanilov Dmitry \nPib-213 \nY = sin(Ln(1+x)/x)*e**x', file=D)
-try:
-    a = str(input("Введите начало отрезка: \n"))
-    a1 = a.replace(',', '.')
-    b = str(input("Введите конец отрезка: \n"))
-    b1 = b.replace(',', '.')
-    h = str(input('Введите шаг: \n'))
-    h1 = h.replace(',', '.')
-    x = float(a1)
-    f = float(b1)
-    step = float(h1)
-    D.write(f'start {x} \nend {f} \nstep {step}\n')
+while True:
     try:
-        while x <= 0 or f <= 0:
-            print("Неподходит по ОДЗ. Попробуйте снова")
-            print('Does not fit. Try again', file=D)
-            break
-        else:
-            while x <= f:
-                Y = math.sin(math.log1p(x) / x) * math.exp(x)
-                x = round(x, 3)
-                print(' | ', x, ' | ', round(Y, 3), ' | ')
-                print(' | ', x, ' | ', round(Y, 3), ' | ', file=D)
-                x += step
-    except ValueError as ve:
-        print(f'Введите положительное число.')
-        print('Pleas positive number', file=D)
-except ValueError as ve:
-    print('Ну ка вводи цифры. ')
-    print('This is not a number. Pleas positive number', file=D)
+        a1 = str(input('Введите начало: '))
+        a2 = a1.replace(',', '.')
+        x = float(a2)
+    except ValueError:
+        print("введите корректней! Пример(0.1)")
+        continue
+    break
+while True:
+    try:
+        b1 = str(input('Введите конец: '))
+        b2 = b1.replace(',', '.')
+        f = float(b2)
+    except ValueError:
+        print("введите корректней! Пример(0.1)")
+        continue
+    break
+while True:
+    try:
+        h1 = str(input('Введите шаг: '))
+        h2 = h1.replace(',', '.')
+        step = float(h2)
+    except ValueError:
+        print("введите корректней! Пример(0.1)")
+        continue
+    break
+D.write(f'start {x} \nend {f} \nstep {step}\n')
+while x <= 0 or f <= 0:
+    print("Неподходит по ОДЗ. Попробуйте снова")
+    print('Does not fit. Try again', file=D)
+    break
+else:
+    while x <= f:
+        Y = math.sin(math.log1p(x) / x) * math.exp(x)
+        x = round(x, 3)
+        print(' | ', x, ' | ', round(Y, 3), ' | ')
+        print(' | ', x, ' | ', round(Y, 3), ' | ', file=D)
+        x += step
 D.close()
