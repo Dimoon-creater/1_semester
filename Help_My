@@ -1,0 +1,13 @@
+def proverka(o):
+    k = 0
+    for i in res:
+        if str(i) in o:
+            return float(o)
+        else:
+            print(f'Введите по фрейму {res}')
+
+
+res = ['0', '1', '.']
+a = str(input('a: '))
+e = proverka(a)
+print(e)
