@@ -1,15 +1,26 @@
 def proverka(o):
     k = 0
-    o = str(input('o: '))
-    for i in res:
-        if str(i) in o:
+    m = 0
+    for i in o:
+        if str(i) == '.':
+            m += 1
+        if m >= 2:
+            print('Точек МНОГО!!!!!!!!')
+            return proverka(enter())
+        if str(i) in res:
             k += 1
         else:
-            print(f'Введите по фрейму {res}')
-    return k
+            print(f'Введите правильно. Допустимые символы \n{res}')
+            return proverka(enter())
+    return float(o)
 
 
-res = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-e = proverka(0)
+def enter():
+    a = str(input('a: '))
+    return a
+
+
+res = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+a = enter()
+e = proverka(a)
 print(e)
-# она выводит число совпадений с массивом 
