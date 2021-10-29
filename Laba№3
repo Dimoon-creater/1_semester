@@ -1,5 +1,23 @@
 from tkinter import *
 import numpy as np
+# sin(Ln(1+x)/x)*e**x
+D = open('test.txt', 'w')
+print('Лабораторная работа №2 \nДанилов Дмитрий \nПиб-213 \nФункция sin(Ln(1+x)/x)*e**x')
+print('Laba #2 \nDanilov Dmitry \nPib-213 \nY = sin(Ln(1+x)/x)*e**x', file=D)
+
+
+def priv(a):
+    while True:
+        try:
+            a = float(input('Введите начало: ').replace(',', '.'))
+            if 0 <= a >= 18554:
+                print('Слишком большое значение!!! Введите моньше ')
+                raise ValueError()
+        except ValueError:
+            print("Введите корректней! Пример(0.1)")
+            continue
+        break
+    return a
 
 
 def os(x, y, m):
@@ -10,7 +28,7 @@ def os(x, y, m):
         c.create_line(x // 2 - 5, i, x // 2 + 5, i)
 
 
-def proga(xn, xk, h, x, y, m):
+def grafik(xn, xk, h, x, y, m):
     sx = x // 2
     sy = y // 2
     yn = np.sin(np.log1p(xn) / xn) * np.exp(xn)
@@ -35,18 +53,40 @@ my = 500
 c = Canvas(root, width=mx, height=my)
 c.pack()
 km = 10
-xg = float(input('n: '))
-f = float(input('k: '))
-step = float(input('g: '))
+
+x = priv(0)
+f = priv(0)
+step = priv(0)
+nn = x
+yn = (np.sin(np.log1p(x) / x) * np.exp(x))
+D.write(f'start {x} \nend {f} \nstep {step}\n')
+while True:
+    try:
+        while x > f or step > f:
+            raise ValueError()
+    except ValueError:
+        print('Вы в вели значения не корректно.\n Нужно чтобы начало было меньше конца и шаг должен быть нормально указан ')
+        continue
+    break
+
+while x <= f:
+    Y = (np.sin(np.log1p(x) / x) * np.exp(x))
+    x = round(x, 3)
+    print(' | ', x, ' | ', round(Y, 3), ' | ')
+    print(' | ', x, ' | ', round(Y, 3), ' | ', file=D)
+    x += step
 
 if (step * 10) % 1 != 0:
-    xg = xg * 10
+    nn = nn * 10
     f = f * 10
     step = step * 10
 
-n = fl(xg)
+n = fl(nn)
 k = fl(f)
 g = fl(step)
+print(f'Экстремумы функции {nn, round(yn, 3)} и {f, round(Y, 3)} ')
 os(mx, my, km)
-proga(n, k, g, mx, my, km)
+grafik(n, k, g, mx, my, km)
+
 root.mainloop()
+D.close()
