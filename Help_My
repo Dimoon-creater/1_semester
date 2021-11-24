@@ -1,8 +1,7 @@
-# проверка на символы в массиве
-# res = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+res = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
 
 
-def proverka(o):
+def test(o):
     k = 0
     m = 0
     for i in o:
@@ -10,21 +9,23 @@ def proverka(o):
             m += 1
         if m >= 2:
             print('Точек МНОГО!!!!!!!!')
-            return proverka(enter())
+            return test(enter())
         if str(i) in res:
             k += 1
         else:
             print(f'Введите правильно. Допустимые символы \n{res}')
-            return proverka(enter())
+            return test(enter())
     return float(o)
 
 
 def enter():
-    a = str(input('a: '))
+    a = str(input('Введите число: '))
     return a
 
 
-res = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
-a = enter()
-e = proverka(a)
-print(e)
+while True:
+    x = test(enter())
+    f = test(enter())
+    step = test(enter())
+    if x <= 18554 or f <= 18554 or step <= 18554 or x > f < step:
+        break
