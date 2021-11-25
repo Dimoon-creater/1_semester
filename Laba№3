@@ -1,10 +1,11 @@
-from tkinter import *
+import matplotlib.pyplot as plt
 import numpy as np
+
 # sin(Ln(1+x)/x)*e**x
 D = open('test.txt', 'w')
-res = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
-print('Лабораторная работа №3 \nДанилов Дмитрий \nПиб-213 \nФункция sin(Ln(1+x)/x)*e**x')
-print('Laba #3 \nDanilov Dmitry \nPib-213 \nY = sin(Ln(1+x)/x)*e**x', file=D)
+arr = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.')
+print(' Лабораторная работа №3 \n Данилов Дмитрий \n Пиб-213 \n Функция sin(Ln(1+x)/x)*e**x')
+D.write(' Lab #3 \n Danilov Dmitry \n Pib-213 \n Y = sin(Ln(1+x)/x)*e**x')
 
 
 def test(o):
@@ -16,58 +17,18 @@ def test(o):
         if m >= 2:
             print('Точек МНОГО!!!!!!!!')
             return test(enter())
-        if str(i) in res:
+        if str(i) in arr:
             k += 1
         else:
-            print(f'Введите правильно. Допустимые символы \n{res}')
+            print(f'Введите правильно. Допустимые символы \n{arr}')
             return test(enter())
     return float(o)
 
 
 def enter():
-    a = str(input('Введите число: '))
+    a = str(input(' Введите число: '))
     return a
 
-
-def os(x, y, m):
-    c.create_line(x // 10, 0, x // 10, y)
-    c.create_line(x, y - 50, 0, y - 50)
-    c.create_text(x - 25, y - 25, text='X')
-    c.create_text(30, 40, text='Y')
-    for i in range(0, max(x, y), m):
-        c.create_line(i, (y - 50) - 5, i, (y - 50) + 5)
-        c.create_line(x // 10 - 5, i, x // 10 + 5, i)
-
-
-def graph(xn, xk, h, x, y, m):
-    sx = x // 10
-    sy = y - 50
-    yn = np.sin(np.log1p(xn) / xn) * np.exp(xn)
-    c.create_oval((xn * m + sx) - 5, (-yn * m + sy) - 5, (xn * m + sx) + 5, (-yn * m + sy) + 5, fill="red")
-    for x2 in range(xn + 1, xk + 1, h):
-        y2 = np.sin(np.log1p(xn) / xn) * np.exp(xn)
-        c.create_line(xn * m + sx, -yn * m + sy, x2 * m + sx, -y2 * m + sy, fill="green", width=2)
-        xn = x2
-        yn = y2
-    c.create_oval((xn * m + sx) - 5, (-yn * m + sy) - 5, (xn * m + sx) + 5, (-yn * m + sy) + 5, fill="red")
-
-
-
-def fl(zx):
-    if zx % 1 == 0:
-        return int(zx)
-    elif zx // 1 == 0:
-        xz = zx * 10
-        return int(xz)
-
-
-root = Tk()
-root.title('Граффик функции: sin(Ln(1+x)/x)*e**x')
-mx = 500
-my = 500
-c = Canvas(root, width=mx, height=my)
-c.pack()
-km = 10
 
 while True:
     x = test(enter())
@@ -75,32 +36,35 @@ while True:
     step = test(enter())
     if x <= 18554 or f <= 18554 or step <= 18554 or x > f < step:
         break
+D.write(f'start {x} \nend {f} \nstep {step}\n')
 
 nn = x
 yn = (np.sin(np.log1p(x) / x) * np.exp(x))
-D.write(f'start {x} \nend {f} \nstep {step}\n')
+x_arr = list()
+y_arr = list()
 
 while x <= f:
-    Y = (np.sin(np.log1p(x) / x) * np.exp(x))
+    y = (np.sin(np.log1p(x) / x) * np.exp(x))
     x = round(x, 3)
-    print(f' | {x} | {round(Y, 3)} | ')
-    D.write(f' | {x} | {round(Y, 3)} | ')
+    x_arr.append(x)
+    y_arr.append(round(y, 3))
+    print(f' | {x} | {round(y, 3)} | ')
+    D.write(f' | {x} | {round(y, 3)} | ')
     x += step
 
-print(f'Экстремумы функции {nn, round(yn, 3)} и {f, round(Y, 3)} ')
-D.write(f'Экстремумы функции {nn, round(yn, 3)} и {f, round(Y, 3)} ')
+print(f'Экстремумы функции {nn, round(yn, 3)} и {f, round(y, 3)} ')
+D.write(f'Экстремумы функции {nn, round(yn, 3)} и {f, round(y, 3)} ')
 
-if (step * 10) % 1 != 0:
-    nn = nn * 10
-    f = f * 10
-    step = step * 10
+fig, ax = plt.subplots()
+ax.set(xlim=[0, 0.8], ylim=[0.5, 1.5],
+       title='Граффик функции: sin(Ln(1+x)/x)*e**x \n (красным выделенны экстремумы функции)',
+       xlabel='ось абцис (XAxis)', ylabel='ось ординат (YAxis)')
+circle1 = plt.Circle((nn, yn), radius=0.01, fill=True, color="r")
+circle2 = plt.Circle((f, y), radius=0.01, fill=True, color="r")
+ax.add_artist(circle1)
+ax.add_artist(circle2)
+plt.plot(x_arr, y_arr)
 
-n = fl(nn)
-k = fl(f)
-g = fl(step)
-os(mx, my, km)
-graph(n, k, g, mx, my, km)
-c.create_text(250, my - 25, text=f'Экстремумы функции {nn, round(yn, 3)} и {f, round(Y, 3)} \n они выделенны красными кружками')
-
-root.mainloop()
+plt.savefig('saved_function.png')
+plt.show()
 D.close()
