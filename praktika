@@ -10,9 +10,13 @@ for i in range(0, n):
     m += k
 p = m / n
 g = []
+z = -1
+v = []
 
 for q in a:
+    z += 1
     if q < (p):
         g.append(q)
+        v.append(z)
 
-print(f' {a}\n {p}\n {g}')
+print(f' {a}\n {p}\n {g}\n {v}')
