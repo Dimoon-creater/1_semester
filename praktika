@@ -1,0 +1,18 @@
+import random as rand
+
+a = []
+m = 0
+n = 10
+
+for i in range(0, n):
+    k = rand.randrange(-100, 100, 1)
+    a.append(k)
+    m += k
+p = m / n
+g = []
+
+for q in a:
+    if q < (p):
+        g.append(q)
+
+print(f' {a}\n {p}\n {g}')
