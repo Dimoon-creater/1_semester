@@ -1,1 +1,60 @@
-//cout << ' Лабораторная работа #3' <<' \n Данилов Дмитрий' << ' \n Пиб - 213' << '\n Функция sin(Ln(1 + x) / x) * e * *x';
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <math.h>
+using namespace std;
+
+double enter() {
+	double p;
+	cout << "  Enter number: ";
+	cin >> p;
+	return p;
+}
+
+double test(double a) {
+	while (true) {
+		try {
+
+			if (0 > a || a >= 18554) {
+				throw "The number should be 0>a>18555";
+
+			}
+		}
+		catch (const char* exeption) {
+			cerr << "Error: " << exeption << "\n";
+			return test(enter());
+		}
+		break;
+	}
+	return a;
+}
+
+int main()
+{
+	ofstream fout;
+	fout.open("output.txt");
+	cout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e * *x\n \n";
+	fout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e * *x\n \n";
+
+	double x, y, h;
+	while (true) {
+
+		cout << " x = "; x = test(enter()); 
+		cout << "\n y = "; y = test(enter());
+		cout << "\n h = "; h = test(enter());
+		if (x < y && h < y) {
+			break;
+		}
+		else {
+			cout << "\n Enter correctly x < y or h < y\n";
+		}
+	}
+	
+	
+	cout << "\n Start: "  << x; fout << "\n Start: " << x;
+	cout << "\n End: "  << y; fout << "\n End: " << y;
+	cout << "\n Step:"  << h; fout << "\n Step:" << h;
+
+	fout.close();
+}
+
