@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <math.h>
+#include <Windows.h>
 using namespace std;
 
 double enter() {
@@ -11,11 +12,11 @@ double enter() {
 	return p;
 }
 
-double test(double a) {
+double test(double o) {
 	while (true) {
 		try {
 
-			if (0 > a || a >= 18554) {
+			if (0 > o || o >= 18554) {
 				throw "The number should be 0>a>18555";
 
 			}
@@ -26,35 +27,43 @@ double test(double a) {
 		}
 		break;
 	}
-	return a;
+	return o;
 }
 
 int main()
 {
 	ofstream fout;
 	fout.open("output.txt");
-	cout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e * *x\n \n";
-	fout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e * *x\n \n";
+	cout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e**x\n \n";
+	fout << "Laba #2 \nDanilov Dmitry \nPib - 213 \nY = sin(Ln(1 + x) / x) * e**x\n \n";
 
-	double x, y, h;
+	double a, b, h, x, y;
 	while (true) {
 
-		cout << " x = "; x = test(enter()); 
-		cout << "\n y = "; y = test(enter());
+		cout << " a = "; a = test(enter()); 
+		cout << "\n b = "; b = test(enter());
 		cout << "\n h = "; h = test(enter());
-		if (x < y && h < y) {
+		if (a < b && h < b) {
 			break;
 		}
 		else {
-			cout << "\n Enter correctly x < y or h < y\n";
+			cout << "\n Enter correctly a < b or h < b\n";
 		}
 	}
 	
 	
-	cout << "\n Start: "  << x; fout << "\n Start: " << x;
-	cout << "\n End: "  << y; fout << "\n End: " << y;
+	cout << "\n Start: "  << a; fout << "\n Start: " << a;
+	cout << "\n End: "  << b; fout << "\n End: " << b;
 	cout << "\n Step:"  << h; fout << "\n Step:" << h;
+	
+	x = a;
+	while (x <= b) {
+		y = sin(log(1 + x) / x) * exp(x);
+		cout << "\n|" << x << "|" << y << "|\n";
+		fout << "\n|" << x << "|" << y << "|\n";
+		x = x + h;
+
+	}
 
 	fout.close();
 }
-
