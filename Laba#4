@@ -1,32 +1,51 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <math.h>
+#include <Windows.h>
 using namespace std;
 
-double enter() {
-	double p;
-	cin >> p;
-	return p;
+string enter() {
+	string s;
+	cout << "This : ";
+	cin >> s;
+	return s;
 }
 
-double test(double o) {
-	while (true) {
-		try {
-
-			if (0 > o || o >= 18554) {
-				throw "The number should be 0>a>18555";
-
+double test(string s) {
+	double d = 0.0;
+	int k = 0; int m = 0; int L1 = s.length(); char arr[11];
+	arr[0] = '0'; arr[1] = '1'; arr[2] = '2'; arr[3] = '3';
+	arr[4] = '4'; arr[5] = '5'; arr[6] = '6'; arr[7] = '7';
+	arr[8] = '8'; arr[9] = '9'; arr[10] = '.';
+	for (int i = 0; i < L1; ++i) {
+		for (int n = 0; n < 11; ++n) {
+			if (s[i] == arr[n]) {
+				++k;
 			}
 		}
-		catch (const char* exeption) {
-			cerr << "Error: " << exeption << "\n";
-			return test(enter());
-		}
-		break;
 	}
-	return o;
+
+	if (k == L1) {
+		++m;
+	}
+	else {
+		cout << "Enter again!\n" << L1 << "\n";
+		return test(enter());
+	}
+
+	if (m == 1) {
+		stringstream ss(s);
+		ss >> d;
+		return d;
+	}
+	else {
+		cout << "Enter again!\n" << L1 << "\n";
+		return test(enter());
+	}
 }
+
 
 int main()
 {
@@ -35,26 +54,21 @@ int main()
 	cout << " Laba #4 \n Danilov Dmitry \n Pib - 213 \n Y = sin(Ln(1 + x) / x) * e**x\n \n";
 	fout << " Laba #4 \n Danilov Dmitry \n Pib - 213 \n Y = sin(Ln(1 + x) / x) * e**x\n \n";
 
-	double a, b, h, x, y, y1;
+	double a, b, h, x, z, y, y1;
 	while (true) {
-
 		cout << " a = "; a = test(enter());
 		cout << " b = "; b = test(enter());
 		cout << " h = "; h = test(enter());
-		if (a < b && h < b) {
-			break;
-		}
-		else {
-			cout << "\n Enter correctly a < b or h < b\n";
-		}
+		break;
 	}
-
 
 	cout << "\n Start: " << a; fout << "\n Start: " << a;
 	cout << "\n End: " << b; fout << "\n End: " << b;
 	cout << "\n Step: " << h << endl; fout << "\n Step: " << h << endl;
 
 	x = a;
+	z = b;
+	cout << x << "----------" << z;
 	y1 = sin(log(1 + x) / x) * exp(x);
 	while (x <= b) {
 		y = sin(log(1 + x) / x) * exp(x);
