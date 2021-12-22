@@ -1,0 +1,50 @@
+#include "MyForm.h"
+#include "math.h"
+
+
+using namespace System;
+using namespace System::Windows::Forms;
+
+[STAThreadAttribute]
+void main(array<String^>^ args) {
+    Application::EnableVisualStyles();
+    Application::SetCompatibleTextRenderingDefault(false);
+
+    Graph::MyForm form;
+    Application::Run(% form);
+}
+
+System::Void Graph::MyForm::построитьГрафикToolStripMenuItem_Click_1(System::Object^ sender, System::EventArgs^ e)
+{
+    
+    if (textBoxA->Text == "" || textBoxB->Text == "" || textBoxH->Text == "") {
+        MessageBox::Show("Параметры по умолчанию!", "Внимание!");
+        DefaultParams();
+    }
+    else {
+        a = Convert::ToDouble(textBoxA->Text);
+        b = Convert::ToDouble(textBoxB->Text);
+        h = Convert::ToDouble(textBoxH->Text);
+
+    }
+
+    this->chart->Series[0]->Points->Clear();
+    x = a;
+    while (x <= b) {
+        y = sin(log(1 + x) / x) * exp(x);
+        this->chart->Series[0]->Points->AddXY(x,y);
+        x += h;
+    }
+}
+
+System::Void Graph::MyForm::выходToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+    return System::Void();
+}
+
+void Graph::MyForm::DefaultParams()
+{
+    a = 0.1;
+    b = 0.5;
+    h = 0.1;
+}
